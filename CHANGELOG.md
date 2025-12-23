@@ -1,3 +1,5 @@
+## [v1.0.0] - 2025-12-23
+
 # Changelog
 
 All notable changes to Conductor will be documented in this file.

@@ -1,0 +1,27 @@
+{
+  "jira_server": "https://your-company.atlassian.net",
+  "jira_username": "your.email@company.com",
+  "project_keys": [
+    "PROJ",
+    "DEV",
+    "TEST"
+  ],
+  "ticket_statuses": [
+    "In Progress",
+    "Selected for Development",
+    "To Do"
+  ],
+  "branch_pattern": "{type}/{ticket_key}-{summary}",
+  "max_results": 50,
+  "additional_jql": "",
+  "use_branch_prefixes": true,
+  "ticket_code_case": "lower",
+  "branch_prefixes": {
+    "Bug": "bugfix",
+    "Story": "feature",
+    "Task": "feature",
+    "Epic": "feature",
+    "Improvement": "improvement",
+    "Spike": "spike"
+  }
+}

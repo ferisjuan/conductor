@@ -83,7 +83,7 @@ install_uv() {
 # Check Python installation
 check_python() {
   local required_major=3
-  local required_minor=8
+  local required_minor=14
 
   if command_exists python3; then
     PYTHON_CMD="python3"
@@ -255,8 +255,8 @@ main() {
 
   # Check Python
   if ! check_python; then
-    print_error "Python 3.8+ is not installed"
-    print_info "Please install Python 3.8 or higher (tested with Python 3.14):"
+    print_error "Python 3.14+ is not installed"
+    print_info "Please install Python 3.14 or higher (tested with Python 3.14):"
     echo ""
     case "$OS" in
     macos)

@@ -1,0 +1,70 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Extract version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Update version in pyproject.toml
+        run: |
+          sed -i 's/^version = .*/version = "${{ steps.get_version.outputs.VERSION }}"/' pyproject.toml
+
+      - name: Update version in version.py
+        run: |
+          sed -i 's/__version__ = .*/__version__ = "${{ steps.get_version.outputs.VERSION }}"/' version.py
+
+      - name: Build package
+        run: |
+          uv build
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          # Get commits since last tag
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -z "$PREVIOUS_TAG" ]; then
+            CHANGELOG=$(git log --pretty=format:"- %s" --no-merges)
+          else
+            CHANGELOG=$(git log ${PREVIOUS_TAG}..HEAD --pretty=format:"- %s" --no-merges)
+          fi
+
+          # Save to file for multiline output
+          echo "$CHANGELOG" > CHANGELOG.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body_path: CHANGELOG.txt
+          draft: false
+          prerelease: false
+          files: |
+            dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

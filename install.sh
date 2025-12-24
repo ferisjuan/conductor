@@ -87,10 +87,10 @@ check_python() {
 
   if command_exists python3; then
     PYTHON_CMD="python3"
-    PYTHON_VERSION=$(python3 --version 2>&1 | grep -oP '\d+\.\d+' | head -1)
+    PYTHON_VERSION=$(python3 --version 2>&1 | sed -n 's/Python \([0-9]*\.[0-9]*\).*/\1/p')
   elif command_exists python; then
     PYTHON_CMD="python"
-    PYTHON_VERSION=$(python --version 2>&1 | grep -oP '\d+\.\d+' | head -1)
+    PYTHON_VERSION=$(python --version 2>&1 | sed -n 's/Python \([0-9]*\.[0-9]*\).*/\1/p')
   else
     return 1
   fi
@@ -98,6 +98,11 @@ check_python() {
   # Parse version
   MAJOR_VERSION=$(echo "$PYTHON_VERSION" | cut -d. -f1)
   MINOR_VERSION=$(echo "$PYTHON_VERSION" | cut -d. -f2)
+
+  # Validate that we got numeric versions
+  if [ -z "$MAJOR_VERSION" ] || [ -z "$MINOR_VERSION" ]; then
+    return 1
+  fi
 
   # Check if version meets requirements (3.8+)
   if [ "$MAJOR_VERSION" -eq "$required_major" ] && [ "$MINOR_VERSION" -ge "$required_minor" ]; then

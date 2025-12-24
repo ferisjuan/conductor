@@ -13,7 +13,7 @@ from typing import Optional, Tuple
 import requests
 
 # Current version - this should match pyproject.toml
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 # Configuration
 GITHUB_REPO = "ferisjuan/conductor"

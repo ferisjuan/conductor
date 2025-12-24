@@ -83,7 +83,7 @@ install_uv() {
 # Check Python installation
 check_python() {
   local required_major=3
-  local required_minor=14
+  local required_minor=8
 
   if command_exists python3; then
     PYTHON_CMD="python3"
@@ -255,19 +255,16 @@ main() {
 
   # Check Python
   if ! check_python; then
-    print_error "Python 3.14+ is not installed"
-    print_info "Please install Python 3.14 or higher (tested with Python 3.14):"
+    print_error "Python 3.8+ is not installed"
+    print_info "Please install Python 3.8 or higher:"
     echo ""
     case "$OS" in
     macos)
-      echo "    brew install python@3.14"
-      echo "    # or"
       echo "    brew install python3"
       ;;
     linux)
       echo "    sudo apt install python3 python3-pip  # Debian/Ubuntu"
       echo "    sudo yum install python3 python3-pip  # RHEL/CentOS"
-      echo "    # or use pyenv to install Python 3.14"
       ;;
     esac
     echo ""

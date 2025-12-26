@@ -15,7 +15,7 @@ import questionary
 from jira import JIRA
 
 # Configuration - Use user's home directory
-CONDUCTOR_DIR = Path.home() / ".conductor"
+CONDUCTOR_DIR = Path.home() / ".conductor-devtools"
 CONFIG_PATH = CONDUCTOR_DIR / "config.json"
 CONFIG_EXAMPLE = CONDUCTOR_DIR / "config.example.json"
 ENV_PATH = CONDUCTOR_DIR / ".env"

@@ -16,6 +16,7 @@ REPO_URL="https://github.com/ferisjuan/conductor"
 RAW_URL="https://raw.githubusercontent.com/ferisjuan/conductor/main"
 INSTALL_DIR="$HOME/.conductor-devtools"
 BIN_DIR="$HOME/.local/bin"
+VENV_DIR="$INSTALL_DIR/venv"
 
 # Print colored output
 print_info() {
@@ -119,7 +120,7 @@ install_via_uv() {
   print_info "Installing Conductor via uv..."
 
   # Try installing from GitHub
-  if uv pip install "git+${REPO_URL}.git"; then
+  if uv pip install -p "$VENV_DIR/bin/python" "git+${REPO_URL}.git"; then
     print_success "Conductor installed via uv"
     return 0
   else
@@ -149,14 +150,8 @@ install_via_script() {
 
   # Install Python dependencies
   print_info "Installing dependencies..."
-  if command_exists uv; then
-    uv pip install jira questionary gitpython python-dotenv requests
-  elif command_exists pip3; then
-    pip3 install --user jira questionary gitpython python-dotenv requests
-  elif command_exists pip; then
-    pip install --user jira questionary gitpython python-dotenv requests
-  else
-    print_error "No package manager found (pip/uv)"
+  if ! "$VENV_DIR/bin/pip" install jira questionary gitpython python-dotenv requests; then
+    print_error "Failed to install dependencies."
     return 1
   fi
 
@@ -171,40 +166,30 @@ create_wrappers() {
   # Create bin directory if it doesn't exist
   mkdir -p "$BIN_DIR"
 
-  # Detect if installed via uv or script
-  if command_exists uv && uv pip show conductor >/dev/null 2>&1; then
-    # Create wrappers that use the uv-installed package
-    cat >"$BIN_DIR/conductor" <<'EOF'
-#!/bin/bash
-python3 -m conductor "$@"
-EOF
-
-    cat >"$BIN_DIR/conductor-setup" <<'EOF'
-#!/bin/bash
-python3 -m setup "$@"
-EOF
-
-    cat >"$BIN_DIR/conductor-update" <<'EOF'
-#!/bin/bash
-python3 -m update "$@"
-EOF
-  else
-    # Create wrappers for script installation
+  if [ "$INSTALL_METHOD" == "uv" ]; then
+    # Create wrapper that uses the installed package
     cat >"$BIN_DIR/conductor" <<EOF
 #!/bin/bash
-$PYTHON_CMD "$INSTALL_DIR/conductor.py" "\$@"
+"$VENV_DIR/bin/python" -m conductor "\$@"
 EOF
-
-    cat >"$BIN_DIR/conductor-setup" <<EOF
+  else
+    # Create wrapper for script installation
+    cat >"$BIN_DIR/conductor" <<EOF
 #!/bin/bash
-$PYTHON_CMD "$INSTALL_DIR/setup.py" "\$@"
-EOF
-
-    cat >"$BIN_DIR/conductor-update" <<EOF
-#!/bin/bash
-$PYTHON_CMD "$INSTALL_DIR/update.py" "\$@"
+"$VENV_DIR/bin/python" "$INSTALL_DIR/conductor.py" "\$@"
 EOF
   fi
+
+  # Create wrappers for setup and update
+  cat >"$BIN_DIR/conductor-setup" <<EOF
+#!/bin/bash
+"$BIN_DIR/conductor" --setup "\$@"
+EOF
+
+  cat >"$BIN_DIR/conductor-update" <<EOF
+#!/bin/bash
+"$BIN_DIR/conductor" --update "\$@"
+EOF
 
   # Make wrappers executable
   chmod +x "$BIN_DIR/conductor"
@@ -260,6 +245,19 @@ main() {
 
   OS=$(detect_os)
   print_info "Detected OS: $OS"
+
+  # Create virtual environment
+  VENV_DIR="$INSTALL_DIR/venv"
+  if [ ! -d "$VENV_DIR" ]; then
+    print_info "Creating virtual environment..."
+    if ! python3 -m venv "$VENV_DIR"; then
+      print_error "Failed to create virtual environment."
+      exit 1
+    fi
+    print_success "Virtual environment created."
+  else
+    print_info "Virtual environment already exists."
+  fi
 
   # Check Python
   if ! check_python; then
@@ -322,7 +320,7 @@ main() {
   print_info "Installation method: $INSTALL_METHOD"
   echo ""
   print_info "Next steps:"
-  echo "  1. Run 'conductor-setup' to configure your Jira credentials"
+  echo "  1. Run 'conductor --setup' to configure your Jira credentials"
   echo "  2. Navigate to any git repository"
   echo "  3. Run 'conductor' to create branches from Jira tickets"
   echo ""

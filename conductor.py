@@ -10,12 +10,40 @@ Usage:
 
 import argparse
 import sys
+import importlib
 
-from cli_help import DESCRIPTION, EPILOG, SETUP_HELP, BRANCH_HELP
+
+def check_dependencies():
+    """Check if required dependencies are installed."""
+    required_packages = {
+        "jira": "jira",
+        "questionary": "questionary",
+        "git": "GitPython",
+        "dotenv": "python-dotenv",
+        "requests": "requests",
+    }
+    missing_packages = []
+    for import_name, package_name in required_packages.items():
+        try:
+            importlib.import_module(import_name)
+        except ImportError:
+            missing_packages.append(package_name)
+
+    if missing_packages:
+        print("Error: The following required packages are not installed:")
+        for package in missing_packages:
+            print(f"- {package}")
+        print("\nPlease install them by running:")
+        print(f"pip install {' '.join(missing_packages)}")
+        sys.exit(1)
+
 
 
 def main():
     """Main entry point for conductor CLI."""
+    check_dependencies()
+
+    from cli_help import DESCRIPTION, EPILOG, SETUP_HELP, BRANCH_HELP
     parser = argparse.ArgumentParser(
         prog='conductor',
         description=DESCRIPTION,

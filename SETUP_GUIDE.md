@@ -9,10 +9,12 @@ conductor/
 │       └── release.yml          # Automated release workflow
 ├── scripts/
 │   └── bump_version.sh          # Version bumping script
-├── conductor.py                 # Main script
+├── conductor.py                 # Main CLI entry point
 ├── setup.py                     # Setup wizard
+├── jira_branch_creator.py       # Branch creation logic
+├── conductor_setup.py           # Update functionality
 ├── version.py                   # Version checking utilities
-├── update.py                    # Update script
+├── cli_help.py                  # Help text
 ├── install.sh                   # Installation script
 ├── pyproject.toml              # Project metadata & dependencies (uv)
 ├── requirements.txt            # Legacy pip requirements
@@ -145,10 +147,10 @@ cd ~/.conductor
 __version__ = "0.9.0"
 
 # 5. Run conductor - should see update message
-conductor
+conductor -b
 
 # 6. Test update command
-conductor-update
+conductor --update
 ```
 
 ## 🎯 GitHub Actions Setup
@@ -221,10 +223,10 @@ Before releasing:
 - [ ] `pyproject.toml` version matches `version.py`
 - [ ] CHANGELOG.md is updated
 - [ ] Installation script works: `bash install.sh`
-- [ ] Setup wizard works: `conductor-setup`
-- [ ] Branch creation works: `conductor`
+- [ ] Setup wizard works: `conductor --setup`
+- [ ] Branch creation works: `conductor -b` or `conductor --branch`
 - [ ] Update checking works (test with fake old version)
-- [ ] Update command works: `conductor-update`
+- [ ] Update command works: `conductor --update`
 - [ ] GitHub Actions workflow is valid (check `.github/workflows/release.yml`)
 
 ## 🎉 User Installation Flow
@@ -236,13 +238,13 @@ Once set up, users install with:
 curl -fsSL https://raw.githubusercontent.com/ferisjuan/conductor/main/install.sh | bash
 
 # Setup
-conductor-setup
+conductor --setup
 
 # Use
-conductor
+conductor -b
 
 # Update anytime
-conductor-update
+conductor --update
 ```
 
 ## 🐛 Troubleshooting
@@ -256,7 +258,7 @@ conductor-update
 ### "Update not working"
 
 - Check that user has proper permissions
-- Verify installation method detection in `update.py`
+- Verify installation method detection in `conductor_setup.py`
 - Test each installation method separately
 
 ### "GitHub Actions failing"

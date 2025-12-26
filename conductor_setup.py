@@ -14,11 +14,11 @@ from pathlib import Path
 import questionary
 from jira import JIRA
 
-# Configuration
-SCRIPT_DIR = Path(__file__).parent
-CONFIG_PATH = SCRIPT_DIR / "config.json"
-CONFIG_EXAMPLE = SCRIPT_DIR / "config.example.json"
-ENV_PATH = SCRIPT_DIR / ".env"
+# Configuration - Use user's home directory
+CONDUCTOR_DIR = Path.home() / ".conductor"
+CONFIG_PATH = CONDUCTOR_DIR / "config.json"
+CONFIG_EXAMPLE = CONDUCTOR_DIR / "config.example.json"
+ENV_PATH = CONDUCTOR_DIR / ".env"
 
 
 def check_dependencies():
@@ -312,7 +312,11 @@ def main():
     """Main setup function."""
     print("Conductor Setup")
     print("This will configure your Jira credentials and fetch project settings.\n")
-    
+
+    # Create .conductor directory if it doesn't exist
+    CONDUCTOR_DIR.mkdir(parents=True, exist_ok=True)
+    print(f"Using config directory: {CONDUCTOR_DIR}\n")
+
     # Check dependencies first
     check_dependencies()
     
@@ -403,6 +407,8 @@ def main():
     print(f"   {CONFIG_PATH.absolute()}")
     print("\n🚀 Next step: Run the branch creator from any git repository:")
     print("   python conductor.py")
+    print("=" * 50)
+    print("Created by Juan Feris. Buy me a coffee https://buymeacoffee.com/ferisjuan")
     print("=" * 50)
 
 

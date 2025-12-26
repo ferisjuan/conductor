@@ -35,11 +35,23 @@ def main():
         help=BRANCH_HELP
     )
 
+    parser.add_argument(
+        '--update',
+        action='store_true',
+        help='Check for updates and install the latest version'
+    )
+
     args = parser.parse_args()
+
+    # Handle --update flag
+    if args.update:
+        from conductor_setup import main as update_main
+        update_main()
+        sys.exit(0)
 
     # Handle --setup flag
     if args.setup:
-        from setup import main as setup_main
+        from conductor_setup import main as setup_main
         setup_main()
         sys.exit(0)
 

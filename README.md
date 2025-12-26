@@ -23,10 +23,10 @@ curl -fsSL https://raw.githubusercontent.com/ferisjuan/conductor/main/install.sh
 
 The installer will:
 
-- ✅ Check for Python 3.8+
+- ✅ Check for Python 3.10+
 - ✅ Optionally install `uv` (recommended modern package manager)
 - ✅ Install Conductor and dependencies
-- ✅ Create command shortcuts (`conductor`, `conductor-setup`, `conductor-update`)
+- ✅ Create command shortcuts (`conductor`, `conductor --setup`, `conductor --update`)
 - ✅ Set up automatic update checking
 
 ### Alternative Installation Methods
@@ -65,7 +65,7 @@ Conductor automatically checks for updates once per day. When an update is avail
 ============================================================
 
 📦 Update with:
-   conductor-update
+   conductor --update
 ============================================================
 ```
 
@@ -73,7 +73,7 @@ Conductor automatically checks for updates once per day. When an update is avail
 
 ```bash
 # Update to latest version
-conductor-update
+conductor --update
 
 # Check current version
 conductor --version
@@ -84,7 +84,7 @@ python -m version --check
 
 ## 📋 Requirements
 
-- Python 3.8+ (tested with Python 3.14)
+- Python 3.10+ (tested with Python 3.14)
 - Git
 - Jira account with API access
 
@@ -95,7 +95,7 @@ python -m version --check
 Run the setup wizard to configure your Jira credentials:
 
 ```bash
-conductor-setup
+conductor --setup
 ```
 
 This will:
@@ -110,7 +110,9 @@ This will:
 Navigate to any git repository and run:
 
 ```bash
-conductor
+conductor -b
+# or
+conductor --branch
 ```
 
 This will:
@@ -204,10 +206,10 @@ CDEM-9012-optimize-queries
 
 ## 🛠️ Commands
 
-- `conductor` - Create a branch from a Jira ticket
-- `conductor-setup` - Run the setup wizard (initial config or updates)
-- `conductor-update` - Update to the latest version
-- `conductor --version` - Show current version
+- `conductor -b` or `conductor --branch` - Create a branch from a Jira ticket
+- `conductor --setup` - Run the setup wizard (initial config or updates)
+- `conductor --update` - Check for updates and install the latest version
+- `conductor -h` or `conductor --help` - Show help message
 
 ## 📁 File Locations
 
@@ -254,8 +256,8 @@ MIT License - See LICENSE file for details
 
 ## 🙏 Credits
 
-Created to streamline the git branch creation workflow for teams using Jira.
+Created by Juan Feris. [Buy me a coffee](https://buymeacoffee.com/ferisjuan)
 
 ---
 
-**Need help?** Open an issue on GitHub or run `conductor-setup` to reconfigure.
+**Need help?** Open an issue on GitHub or run `conductor --setup` to reconfigure.

@@ -19,16 +19,21 @@ import git
 import questionary
 
 
-def load_config(config_path: str = "config.json") -> Dict:
+def load_config(config_path: Optional[str] = None) -> Dict:
     """Load configuration from JSON file."""
-    config_file = Path(config_path)
-    if not config_file.exists():
+    if config_path is None:
+        # Use default location in user's home directory
+        config_path = Path.home() / ".conductor" / "config.json"
+    else:
+        config_path = Path(config_path)
+
+    if not config_path.exists():
         print(f"Error: {config_path} not found!")
-        print("Please run 'python setup.py' to configure Conductor.")
+        print("Please run 'conductor --setup' to configure Conductor.")
         sys.exit(1)
-    
+
     try:
-        with open(config_file) as f:
+        with open(config_path) as f:
             config = json.load(f)
     except json.JSONDecodeError as e:
         print(f"Error: Invalid JSON in {config_path}: {e}")
@@ -60,15 +65,20 @@ def load_config(config_path: str = "config.json") -> Dict:
     return config
 
 
-def load_env(env_path: str = ".env") -> Dict[str, str]:
+def load_env(env_path: Optional[str] = None) -> Dict[str, str]:
     """Load environment variables from .env file."""
-    env_file = Path(env_path)
-    if not env_file.exists():
+    if env_path is None:
+        # Use default location in user's home directory
+        env_path = Path.home() / ".conductor" / ".env"
+    else:
+        env_path = Path(env_path)
+
+    if not env_path.exists():
         print(f"Error: {env_path} not found!")
-        print("\nRun 'python setup.py' to configure Conductor.")
+        print("\nRun 'conductor --setup' to configure Conductor.")
         sys.exit(1)
-    
-    load_dotenv(dotenv_path=env_file)
+
+    load_dotenv(dotenv_path=env_path)
     
     required_vars = ["JIRA_API_TOKEN"]
     missing_vars = [var for var in required_vars if not os.getenv(var)]
@@ -449,7 +459,7 @@ def main():
     print(f"   Branch: {confirmed_name}")
     print("=" * 50)
     print("\nYou can manually edit the configuration at any time:")
-    print(f"   {Path('config.json').absolute()}")
+    print(f"   {Path.home() / '.conductor' / 'config.json'}")
 
 
 if __name__ == "__main__":

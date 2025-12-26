@@ -63,20 +63,22 @@ curl -fsSL https://raw.githubusercontent.com/ferisjuan/conductor/main/install.sh
 ### First Time Setup
 
 ```bash
-conductor-setup
+conductor --setup
 ```
 
 ### Daily Usage
 
 ```bash
 # In any git repo
-conductor
+conductor -b
+# or
+conductor --branch
 ```
 
 ### Update
 
 ```bash
-conductor-update
+conductor --update
 ```
 
 ### Check Version
@@ -148,7 +150,7 @@ Newer version found?
    ↓ Yes
 Show update message
    ↓
-User runs 'conductor-update'
+User runs 'conductor --update'
    ↓
 Detect installation method (uv/pip/script)
    ↓
@@ -177,11 +179,11 @@ bash install.sh
 python version.py --check
 
 # Test update (after creating new release)
-conductor-update
+conductor --update
 
 # Test main flow
-conductor-setup
-conductor
+conductor --setup
+conductor -b
 ```
 
 ## 📦 Installation Methods
@@ -200,7 +202,7 @@ conductor
 | Command not found | Add `~/.local/bin` to PATH |
 | Update not working | Check GitHub repo is public |
 | Version check failing | Verify internet connection |
-| Installation failing | Check Python 3.8+ installed |
+| Installation failing | Check Python 3.10+ installed |
 
 ## 📞 Support
 

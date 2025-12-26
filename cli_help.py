@@ -11,6 +11,7 @@ Examples:
   conductor --setup       Run initial setup or reconfigure Jira credentials
   conductor -b            Create a branch from a Jira ticket
   conductor --branch      Create a branch from a Jira ticket
+  conductor --update      Check for updates and install the latest version
   conductor -h            Show this help message
   conductor --help        Show this help message
 
@@ -25,11 +26,18 @@ Getting Started:
   2. Navigate to any git repository
   3. Run 'conductor -b' to create a branch from your Jira tickets
 
+Maintenance:
+  - Check for updates:  conductor --update
+  - Reconfigure:        conductor --setup
+
 Configuration:
   After setup, you can manually edit the configuration files:
     - config.json   : Jira settings, projects, statuses, branch patterns
     - .env          : API token (keep this secure)
+
+  Configuration location: ~/.conductor/
 """
 
 SETUP_HELP = "Run setup to configure Jira credentials and settings"
 BRANCH_HELP = "Create a git branch from a Jira ticket"
+UPDATE_HELP = "Check for updates and install the latest version"

@@ -83,7 +83,7 @@ install_uv() {
 # Check Python installation
 check_python() {
   local required_major=3
-  local required_minor=8
+  local required_minor=10
 
   if command_exists python3; then
     PYTHON_CMD="python3"
@@ -104,7 +104,7 @@ check_python() {
     return 1
   fi
 
-  # Check if version meets requirements (3.8+)
+  # Check if version meets requirements (3.10+)
   if [ "$MAJOR_VERSION" -eq "$required_major" ] && [ "$MINOR_VERSION" -ge "$required_minor" ]; then
     return 0
   elif [ "$MAJOR_VERSION" -gt "$required_major" ]; then
@@ -260,8 +260,8 @@ main() {
 
   # Check Python
   if ! check_python; then
-    print_error "Python 3.8+ is not installed"
-    print_info "Please install Python 3.8 or higher:"
+    print_error "Python 3.10+ is not installed"
+    print_info "Please install Python 3.10 or higher:"
     echo ""
     case "$OS" in
     macos)
@@ -324,6 +324,9 @@ main() {
   echo "  3. Run 'conductor' to create branches from Jira tickets"
   echo ""
   print_info "Update anytime with: conductor-update"
+  echo ""
+  echo ""
+  print_info "Created by Juan Feris. Buy me a coffee https://buymeacoffee.com/ferisjuan"
   echo ""
 }
 

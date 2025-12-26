@@ -221,6 +221,7 @@ CDEM-9012-optimize-queries
 - `conductor -b` or `conductor --branch` - Create a branch from a Jira ticket
 - `conductor --setup` - Run the setup wizard (initial config or updates)
 - `conductor --update` - Check for updates and install the latest version
+- `conductor --delete-app` - Remove all Conductor files and directories from your system
 - `conductor -h` or `conductor --help` - Show help message
 
 ## 📁 File Locations
@@ -232,7 +233,17 @@ CDEM-9012-optimize-queries
 
 ## 🗑️ Uninstall
 
-To completely remove Conductor from your system, execute the following commands:
+The recommended way to uninstall Conductor is to use the built-in command:
+
+```bash
+conductor --delete-app
+```
+
+This will guide you through the uninstallation process and ensure all components are removed cleanly.
+
+### Manual Uninstallation
+
+If you prefer to remove the files manually, you can execute the following commands:
 
 ```bash
 # 1. Remove Conductor's installed files and virtual environment

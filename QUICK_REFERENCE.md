@@ -81,6 +81,12 @@ conductor --branch
 conductor --update
 ```
 
+### Uninstall
+
+```bash
+conductor --delete-app
+```
+
 ### Check Version
 
 ```bash

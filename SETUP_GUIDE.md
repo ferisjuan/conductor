@@ -12,6 +12,7 @@ conductor/
 ├── conductor.py                 # Main CLI entry point
 ├── jira_branch_creator.py       # Branch creation logic
 ├── conductor_update.py            # Update functionality
+├── conductor_delete.py            # Uninstall functionality
 ├── version.py                   # Version checking utilities
 ├── cli_help.py                  # Help text
 ├── settings.py                  # Centralized configuration for installation path
@@ -245,6 +246,9 @@ conductor -b
 
 # Update anytime
 conductor --update
+
+# Uninstall
+conductor --delete-app
 ```
 
 ## 🐛 Troubleshooting

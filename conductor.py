@@ -69,7 +69,20 @@ def main():
         help='Check for updates and install the latest version'
     )
 
+    parser.add_argument(
+        '--delete-app',
+        action='store_true',
+        help='Remove all Conductor files and directories from your system'
+    )
+
     args = parser.parse_args()
+
+    # Handle --delete-app flag
+    if args.delete_app:
+        from conductor_delete import main as delete_main
+        delete_main()
+        sys.exit(0)
+
 
     # Handle --update flag
     if args.update:

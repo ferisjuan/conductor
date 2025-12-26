@@ -145,6 +145,7 @@ install_via_script() {
   curl -fsSL "$RAW_URL/cli_help.py" -o "$INSTALL_DIR/cli_help.py"
   curl -fsSL "$RAW_URL/settings.py" -o "$INSTALL_DIR/settings.py"
   curl -fsSL "$RAW_URL/conductor_update.py" -o "$INSTALL_DIR/conductor_update.py"
+  curl -fsSL "$RAW_URL/conductor_delete.py" -o "$INSTALL_DIR/conductor_delete.py"
 
   # Make scripts executable
   chmod +x "$INSTALL_DIR/conductor.py"

@@ -36,7 +36,6 @@ Issues = "https://github.com/ferisjuan/conductor/issues"
 
 [project.scripts]
 conductor = "conductor:main"
-conductor-setup = "setup:main"
 
 [build-system]
 requires = ["hatchling"]

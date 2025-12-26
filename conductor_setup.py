@@ -16,10 +16,9 @@ from jira import JIRA
 from settings import CONDUCTOR_HOME
 
 # Configuration - Use user's home directory
-CONDUCTOR_DIR = CONDUCTOR_HOME
-CONFIG_PATH = CONDUCTOR_DIR / "config.json"
-CONFIG_EXAMPLE = CONDUCTOR_DIR / "config.example.json"
-ENV_PATH = CONDUCTOR_DIR / ".env"
+CONFIG_PATH = CONDUCTOR_HOME / "config.json"
+CONFIG_EXAMPLE = CONDUCTOR_HOME / "config.example.json"
+ENV_PATH = CONDUCTOR_HOME / ".env"
 
 
 def check_dependencies():
@@ -350,8 +349,8 @@ def main():
     print("This will configure your Jira credentials and fetch project settings.\n")
 
     # Create .conductor directory if it doesn't exist
-    CONDUCTOR_DIR.mkdir(parents=True, exist_ok=True)
-    print(f"Using config directory: {CONDUCTOR_DIR}\n")
+    CONDUCTOR_HOME.mkdir(parents=True, exist_ok=True)
+    print(f"Using config directory: {CONDUCTOR_HOME}\n")
 
     # Check dependencies first
     check_dependencies()

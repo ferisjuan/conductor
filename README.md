@@ -145,7 +145,7 @@ Branch prefixes are ✅ enabled (change in config.json if needed)
 
 ## ⚙️ Configuration
 
-After setup, you can edit `~/.conductor/config.json`:
+After setup, you can edit `~/.conductor-devtools/config.json`:
 
 ```json
 {
@@ -200,7 +200,7 @@ CDEM-9012-optimize-queries
 
 ## 🔐 Security
 
-- API tokens are stored in `~/.conductor/.env` with restricted permissions (600)
+- API tokens are stored in `~/.conductor-devtools/.env` with restricted permissions (600)
 - Never commit `.env` files to version control
 - Generate API tokens at: <https://id.atlassian.com/manage-profile/security/api-tokens>
 
@@ -213,9 +213,9 @@ CDEM-9012-optimize-queries
 
 ## 📁 File Locations
 
-- Installation: `~/.conductor/`
-- Configuration: `~/.conductor/config.json`
-- Credentials: `~/.conductor/.env`
+- Installation: `~/.conductor-devtools/`
+- Configuration: `~/.conductor-devtools/config.json`
+- Credentials: `~/.conductor-devtools/.env`
 - Commands: `~/.local/bin/conductor`, `~/.local/bin/conductor-setup`
 
 ## 🐛 Troubleshooting

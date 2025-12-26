@@ -163,10 +163,10 @@ Done!
 
 | Item | Location |
 |------|----------|
-| Installation | `~/.conductor/` |
-| Config | `~/.conductor/config.json` |
-| Credentials | `~/.conductor/.env` |
-| Version cache | `~/.conductor/.version_cache` |
+| Installation | `~/.conductor-devtools/` |
+| Config | `~/.conductor-devtools/config.json` |
+| Credentials | `~/.conductor-devtools/.env` |
+| Version cache | `~/.conductor-devtools/.version_cache` |
 | Commands | `~/.local/bin/conductor*` |
 
 ## 🧪 Testing Commands

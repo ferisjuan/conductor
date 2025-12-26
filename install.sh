@@ -14,7 +14,7 @@ NC='\033[0m' # No Color
 # Configuration
 REPO_URL="https://github.com/ferisjuan/conductor"
 RAW_URL="https://raw.githubusercontent.com/ferisjuan/conductor/main"
-INSTALL_DIR="$HOME/.conductor"
+INSTALL_DIR="$HOME/.conductor-devtools"
 BIN_DIR="$HOME/.local/bin"
 
 # Print colored output
@@ -119,7 +119,7 @@ install_via_uv() {
   print_info "Installing Conductor via uv..."
 
   # Try installing from GitHub
-  if uv pip install "git+${REPO_URL}.git" --system 2>&1 | grep -v "Requirement already satisfied" || true; then
+  if uv pip install "git+${REPO_URL}.git"; then
     print_success "Conductor installed via uv"
     return 0
   else
@@ -138,19 +138,19 @@ install_via_script() {
   # Download main files
   print_info "Downloading files..."
   curl -fsSL "$RAW_URL/conductor.py" -o "$INSTALL_DIR/conductor.py"
-  curl -fsSL "$RAW_URL/setup.py" -o "$INSTALL_DIR/setup.py"
+  curl -fsSL "$RAW_URL/conductor_setup.py" -o "$INSTALL_DIR/conductor_setup.py"
+  curl -fsSL "$RAW_URL/jira_branch_creator.py" -o "$INSTALL_DIR/jira_branch_creator.py"
   curl -fsSL "$RAW_URL/version.py" -o "$INSTALL_DIR/version.py"
-  curl -fsSL "$RAW_URL/update.py" -o "$INSTALL_DIR/update.py"
+  curl -fsSL "$RAW_URL/cli_help.py" -o "$INSTALL_DIR/cli_help.py"
 
   # Make scripts executable
   chmod +x "$INSTALL_DIR/conductor.py"
-  chmod +x "$INSTALL_DIR/setup.py"
-  chmod +x "$INSTALL_DIR/update.py"
+  chmod +x "$INSTALL_DIR/conductor_setup.py"
 
   # Install Python dependencies
   print_info "Installing dependencies..."
   if command_exists uv; then
-    uv pip install jira questionary gitpython python-dotenv requests --system
+    uv pip install jira questionary gitpython python-dotenv requests
   elif command_exists pip3; then
     pip3 install --user jira questionary gitpython python-dotenv requests
   elif command_exists pip; then
@@ -254,6 +254,9 @@ main() {
   echo "║   Jira Ticket Branch Creator               ║"
   echo "╚════════════════════════════════════════════╝"
   echo ""
+
+  # Ensure installation directory exists
+  mkdir -p "$INSTALL_DIR"
 
   OS=$(detect_os)
   print_info "Detected OS: $OS"

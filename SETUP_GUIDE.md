@@ -113,7 +113,7 @@ git push origin v1.0.1
 ## 📦 How Version Checking Works
 
 1. **Automatic Checks**: When users run `conductor`, it checks for updates once per day
-2. **Version Cache**: Stores last check time in `~/.conductor/.version_cache`
+2. **Version Cache**: Stores last check time in `~/.conductor-devtools/.version_cache`
 3. **GitHub API**: Fetches latest release from GitHub
 4. **User Notification**: Shows update message if newer version available
 

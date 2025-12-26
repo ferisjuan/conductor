@@ -40,14 +40,14 @@ uv run conductor.py
 
 ```bash
 # Test that all imports work
-python3 -c "import conductor; conductor.main()"
+uv run -c "import conductor; conductor.main()"
 
 # Test individual module imports
-python3 -c "import cli_help; print(cli_help.DESCRIPTION)"
-python3 -c "import setup; print('Setup module loaded')"
-python3 -c "import jira_branch_creator; print('Branch creator loaded')"
-python3 -c "import conductor_setup; print('Update module loaded')"
-python3 -c "import version; print('Version:', version.__version__)"
+uv run -c "import cli_help; print(cli_help.DESCRIPTION)"
+uv run -c "import setup; print('Setup module loaded')"
+uv run -c "import jira_branch_creator; print('Branch creator loaded')"
+uv run -c "import conductor_setup; print('Update module loaded')"
+uv run -c "import version; print('Version:', version.__version__)"
 ```
 
 **Expected Results:**
@@ -67,7 +67,7 @@ python3 -c "import version; print('Version:', version.__version__)"
 rm -rf ~/.conductor/
 
 # Run setup
-python3 conductor.py --setup
+uv run conductor.py --setup
 ```
 
 **Follow the prompts:**
@@ -113,7 +113,7 @@ stat -c "%a" ~/.conductor/.env  # Linux
 
 ```bash
 # Run setup again
-python3 conductor.py --setup
+uv run conductor.py --setup
 ```
 
 **Expected Results:**
@@ -134,7 +134,7 @@ python3 conductor.py --setup
 cd /path/to/your/git/repo
 
 # Run branch creation
-python3 /Users/juan/wsp/conductor/conductor.py -b
+uv run /Users/juan/wsp/conductor/conductor.py -b
 ```
 
 **Expected Results:**
@@ -160,7 +160,7 @@ git branch --show-current
 
 ```bash
 # Test with long form flag
-python3 /Users/juan/wsp/conductor/conductor.py --branch
+uv run /Users/juan/wsp/conductor/conductor.py --branch
 ```
 
 **Expected Results:**
@@ -176,7 +176,7 @@ python3 /Users/juan/wsp/conductor/conductor.py --branch
 
 ```bash
 # Run update command
-python3 conductor.py --update
+uv run conductor.py --update
 ```
 
 **Expected Results:**
@@ -221,7 +221,7 @@ ls -la ~/.conductor/
 rm -rf ~/.conductor/
 
 # Try to create branch without setup
-python3 conductor.py -b
+uv run conductor.py -b
 ```
 
 **Expected Results:**
@@ -239,7 +239,7 @@ python3 conductor.py -b
 echo "invalid json{{{" > ~/.conductor/config.json
 
 # Try to run
-python3 conductor.py -b
+uv run conductor.py -b
 ```
 
 **Expected Results:**
@@ -259,19 +259,19 @@ python3 conductor.py -b
 rm -rf ~/.conductor/
 
 # 2. Initial setup
-python3 conductor.py --setup
+uv run conductor.py --setup
 # Complete all setup steps
 
 # 3. View help
-python3 conductor.py -h
+uv run conductor.py -h
 
 # 4. Create a branch
 cd /path/to/git/repo
-python3 /Users/juan/wsp/conductor/conductor.py -b
+uv run /Users/juan/wsp/conductor/conductor.py -b
 # Select a ticket and create branch
 
 # 5. Check for updates
-python3 /Users/juan/wsp/conductor/conductor.py --update
+uv run /Users/juan/wsp/conductor/conductor.py --update
 
 # 6. Verify config location
 ls -la ~/.conductor/
@@ -323,7 +323,7 @@ pip install jira gitpython python-dotenv questionary requests
 **Solution:** Use full path:
 
 ```bash
-python3 /Users/juan/wsp/conductor/conductor.py --help
+uv run /Users/juan/wsp/conductor/conductor.py --help
 ```
 
 ### Issue: "Permission denied: ~/.conductor/.env"

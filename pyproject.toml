@@ -1,6 +1,6 @@
 [project]
 name = "conductor"
-version = "1.0.7"
+version = "1.0.8"
 description = "Developer workflow toolkit"
 authors = [{ name = "Juan Feris" }]
 readme = "README.md"

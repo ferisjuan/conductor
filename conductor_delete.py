@@ -5,7 +5,6 @@ Conductor Uninstaller
 Removes all Conductor files and directories from the system.
 """
 
-import os
 import shutil
 import sys
 from pathlib import Path
@@ -23,15 +22,18 @@ def main():
     print("This action cannot be undone.")
     print("\nFiles and directories to be removed:")
     print(f"  - Installation directory: {CONDUCTOR_HOME}")
-    print(f"  - Commands: {{'~/.local/bin/conductor', '~/.local/bin/conductor-setup', '~/.local/bin/conductor-update'}}")
+    print(
+        "  - Commands: {{'~/.local/bin/conductor', '~/.local/bin/conductor-setup', '~/.local/bin/conductor-update'}}"
+    )
     print("=" * 50)
-    
+
     confirmation_text = "confirm-deletion"
-    
+
     try:
         user_confirmation = questionary.text(
             f"To confirm, please type the following text exactly: {confirmation_text}",
-            validate=lambda text: text == confirmation_text or f"You must type '{confirmation_text}' to confirm."
+            validate=lambda text: text == confirmation_text
+            or f"You must type '{confirmation_text}' to confirm.",
         ).ask()
 
         if user_confirmation != confirmation_text:
@@ -51,7 +53,7 @@ def main():
         # 2. Remove the command shortcuts
         bin_dir = Path.home() / ".local" / "bin"
         commands_to_remove = ["conductor", "conductor-setup", "conductor-update"]
-        
+
         for command in commands_to_remove:
             command_path = bin_dir / command
             if command_path.exists():

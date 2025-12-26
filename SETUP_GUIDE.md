@@ -11,7 +11,7 @@ conductor/
 │   └── bump_version.sh          # Version bumping script
 ├── conductor.py                 # Main CLI entry point
 ├── jira_branch_creator.py       # Branch creation logic
-├── conductor_setup.py           # Setup wizard and update logic
+├── conductor_update.py            # Update functionality
 ├── version.py                   # Version checking utilities
 ├── cli_help.py                  # Help text
 ├── settings.py                  # Centralized configuration for installation path

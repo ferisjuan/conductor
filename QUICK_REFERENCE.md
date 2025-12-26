@@ -95,7 +95,7 @@ conductor --version
 | `version.py` | Version checking logic |
 | `install.sh` | User installation script |
 | `conductor.py` | Main application |
-| `conductor_setup.py` | Setup wizard and update logic |
+| `conductor_update.py` | Update command implementation |
 | `jira_branch_creator.py` | Branch creation logic |
 | `settings.py` | Centralized configuration for installation path |
 | `CHANGELOG.md` | Version history |

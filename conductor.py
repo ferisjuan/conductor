@@ -73,7 +73,7 @@ def main():
 
     # Handle --update flag
     if args.update:
-        from conductor_setup import main as update_main
+        from conductor_update import main as update_main
         update_main()
         sys.exit(0)
 

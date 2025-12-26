@@ -10,11 +10,11 @@ conductor/
 ├── scripts/
 │   └── bump_version.sh          # Version bumping script
 ├── conductor.py                 # Main CLI entry point
-├── setup.py                     # Setup wizard
 ├── jira_branch_creator.py       # Branch creation logic
-├── conductor_setup.py           # Update functionality
+├── conductor_setup.py           # Setup wizard and update logic
 ├── version.py                   # Version checking utilities
 ├── cli_help.py                  # Help text
+├── settings.py                  # Centralized configuration for installation path
 ├── install.sh                   # Installation script
 ├── pyproject.toml              # Project metadata & dependencies (uv)
 ├── requirements.txt            # Legacy pip requirements
@@ -142,7 +142,7 @@ git push origin vX.X.X
 # 3. Wait for GitHub release to be created
 
 # 4. Downgrade locally (for testing)
-cd ~/.conductor
+cd ~/.conductor-devtools
 # Manually edit version.py to older version
 __version__ = "0.9.0"
 

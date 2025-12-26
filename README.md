@@ -29,6 +29,18 @@ The installer will:
 - ✅ Create command shortcuts (`conductor`, `conductor --setup`, `conductor --update`)
 - ✅ Set up automatic update checking
 
+---
+**⚠️ IMPORTANT: Using `uv` is HIGHLY recommended for a smoother installation!**
+
+If you don't have `uv` installed, the installer will prompt you to install it.
+`uv` provides faster, more reliable dependency management and avoids common
+issues with Python's "externally managed environments" (PEP 668), especially
+on systems like macOS with Homebrew.
+
+Installing `uv` first (or accepting the installer's prompt) will generally
+prevent `ModuleNotFoundError` issues and ensure Conductor runs correctly.
+---
+
 ### Alternative Installation Methods
 
 **Using uv (recommended):**
@@ -217,6 +229,23 @@ CDEM-9012-optimize-queries
 - Configuration: `~/.conductor-devtools/config.json`
 - Credentials: `~/.conductor-devtools/.env`
 - Commands: `~/.local/bin/conductor`, `~/.local/bin/conductor-setup`
+
+## 🗑️ Uninstall
+
+To completely remove Conductor from your system, execute the following commands:
+
+```bash
+# 1. Remove Conductor's installed files and virtual environment
+rm -rf "$HOME/.conductor-devtools"
+
+# 2. Remove the command shortcuts from ~/.local/bin
+rm -f "$HOME/.local/bin/conductor"
+rm -f "$HOME/.local/bin/conductor-setup"
+rm -f "$HOME/.local/bin/conductor-update"
+
+# 3. (Optional) If you installed `uv` *only* for Conductor and wish to remove it:
+#    curl -LsSf https://astral.sh/uv/install.sh | sh --uninstall
+```
 
 ## 🐛 Troubleshooting
 

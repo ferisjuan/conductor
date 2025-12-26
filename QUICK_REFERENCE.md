@@ -93,10 +93,11 @@ conductor --version
 |------|---------|
 | `pyproject.toml` | UV project config, version, dependencies |
 | `version.py` | Version checking logic |
-| `update.py` | Update command implementation |
 | `install.sh` | User installation script |
 | `conductor.py` | Main application |
-| `setup.py` | Setup wizard |
+| `conductor_setup.py` | Setup wizard and update logic |
+| `jira_branch_creator.py` | Branch creation logic |
+| `settings.py` | Centralized configuration for installation path |
 | `CHANGELOG.md` | Version history |
 | `.github/workflows/release.yml` | Auto-release on tag |
 | `scripts/bump_version.sh` | Version bump helper |

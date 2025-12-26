@@ -19,11 +19,14 @@ import git
 import questionary
 
 
+from settings import CONDUCTOR_HOME
+
+
 def load_config(config_path: Optional[str] = None) -> Dict:
     """Load configuration from JSON file."""
     if config_path is None:
         # Use default location in user's home directory
-        config_path = Path.home() / ".conductor" / "config.json"
+        config_path = CONDUCTOR_HOME / "config.json"
     else:
         config_path = Path(config_path)
 
@@ -69,7 +72,7 @@ def load_env(env_path: Optional[str] = None) -> Dict[str, str]:
     """Load environment variables from .env file."""
     if env_path is None:
         # Use default location in user's home directory
-        env_path = Path.home() / ".conductor" / ".env"
+        env_path = CONDUCTOR_HOME / ".env"
     else:
         env_path = Path(env_path)
 
@@ -419,8 +422,8 @@ def main():
     
     # Select ticket
     selected_ticket = display_tickets(tickets)
-    if not selected_ticket:
-        print("\nOperation cancelled.")
+    if not selected_ticket or not hasattr(selected_ticket, 'fields'):
+        print("\nOperation cancelled or invalid ticket selected.")
         sys.exit(0)
     
     # Generate branch name (using config setting)
@@ -459,7 +462,7 @@ def main():
     print(f"   Branch: {confirmed_name}")
     print("=" * 50)
     print("\nYou can manually edit the configuration at any time:")
-    print(f"   {Path.home() / '.conductor' / 'config.json'}")
+    print(f"   {CONDUCTOR_HOME / 'config.json'}")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 [project]
 name = "conductor"
-version = "1.0.3"
+version = "1.0.4"
 description = "Developer workflow toolkit"
 authors = [
     {name = "Juan Feris"}
